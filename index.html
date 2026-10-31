@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Viking Chaos Viewer Controls</title>
+<style>
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  color: #fff;
+}
+.menu {
+  width: 100%;
+  padding: 8px;
+  background: rgba(12, 20, 32, 0.88);
+  border: 1px solid #bd8b46;
+  border-radius: 9px;
+}
+.heading {
+  text-align: center;
+  color: #ffd28a;
+  font-weight: 900;
+  font-size: 17px;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.items {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.item {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+  background: rgba(73, 96, 123, 0.5);
+  border: 1px solid rgba(255, 210, 138, 0.4);
+  border-radius: 7px;
+  padding: 8px 5px;
+}
+.gift {
+  font-size: 16px;
+  font-weight: bold;
+}
+.effect {
+  font-size: 13px;
+  color: #ffd28a;
+  margin-top: 4px;
+}
+</style>
+</head>
+<body>
+<div class="menu">
+  <div class="heading">⚔ VIKING CHAOS • VIEWER CONTROLS ⚔</div>
+  <div class="items" id="items"></div>
+</div>
+<script>
+const interactions = [
+  { gift: "❤️ Hand Heart", effect: "Random Weather" },
+  { gift: "👍 5K Likes", effect: "Natural Raid" }
+];
+
+// Add new interactions to the list above as you create them.
+// The overlay URL will stay the same.
+const container = document.getElementById("items");
+interactions.forEach(item => {
+  const card = document.createElement("div");
+  card.className = "item";
+  const gift = document.createElement("div");
+  gift.className = "gift";
+  gift.textContent = item.gift;
+  const effect = document.createElement("div");
+  effect.className = "effect";
+  effect.textContent = item.effect;
+  card.append(gift, effect);
+  container.appendChild(card);
+});
+</script>
+</body>
+</html>
