@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Meadows Supply Drops</title>
+<style>
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    font-family: Arial, sans-serif;
+    color: #f4e8c8;
+  }
+
+  .banner {
+    width: 100%;
+    max-width: 900px;
+    padding: 12px;
+    background: linear-gradient(135deg, #14291b, #27432a);
+    border: 2px solid #b99a55;
+    border-radius: 12px;
+    box-shadow: 0 0 14px #0009;
+  }
+
+  .heading {
+    text-align: center;
+    color: #f1cd7b;
+    font-weight: 900;
+    font-size: 19px;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    text-align: center;
+    color: #b7d6a5;
+    font-size: 11px;
+    margin-bottom: 10px;
+  }
+
+  .items {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .item {
+    background: #304c32;
+    border: 1px solid #718c58;
+    border-radius: 7px;
+    padding: 9px 4px;
+    text-align: center;
+    min-width: 0;
+  }
+
+  .gift {
+    font-size: 13px;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+  }
+
+  .resource {
+    color: #c8e8a8;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+
+  @media (max-width: 540px) {
+    .items { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+</style>
+</head>
+<body>
+<div class="banner">
+  <div class="heading">🌿 MEADOWS SUPPLY DROPS 🌿</div>
+  <div class="subtitle">OFFERINGS TO THE VIKING</div>
+  <div class="items" id="items"></div>
+</div>
+
+<script>
+const supplies = [
+  { gift: "🌹 Rosa", resource: "🪵 10 Wood" },
+  { gift: "🥊 Gold Boxing Gloves", resource: "🪨 10 Stone" },
+  { gift: "🐬 Dolphin", resource: "🪨 10 Flint" },
+  { gift: "🧸 Hi Bear", resource: "🦌 10 Deer Hide" },
+  { gift: "🎉 Bravo!", resource: "🐗 10 Leather Scraps" },
+  { gift: "🍅 Tiny Blush", resource: "🟡 10 Resin" },
+  { gift: "✉️ Lyric Mail", resource: "🪶 10 Feathers" }
+];
+
+const container = document.getElementById("items");
+
+supplies.forEach(item => {
+  const card = document.createElement("div");
+  card.className = "item";
+
+  const gift = document.createElement("div");
+  gift.className = "gift";
+  gift.textContent = item.gift;
+
+  const resource = document.createElement("div");
+  resource.className = "resource";
+  resource.textContent = item.resource;
+
+  card.append(gift, resource);
+  container.appendChild(card);
+});
+</script>
+</body>
+</html>
