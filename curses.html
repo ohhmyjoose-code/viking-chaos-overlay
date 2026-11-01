@@ -3,13 +3,25 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Joose Viking Chaos | Curses of Loki</title>
+
 <style>
-  * { box-sizing: border-box; }
+  :root {
+    --gold: #f3bd72;
+    --cream: #fff0dc;
+    --muted: #e5b8a6;
+    --red: #d65b4e;
+    --speed: 95s;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
 
   html, body {
     margin: 0;
+    padding: 0;
     width: 100%;
     height: 100%;
     overflow: hidden;
@@ -17,185 +29,316 @@
     font-family: Georgia, "Times New Roman", serif;
   }
 
-  .overlay {
-    width: 100%;
-    height: 100%;
+  body {
     display: flex;
+    align-items: flex-end;
+  }
+
+  .banner {
+    width: 100%;
+    height: 110px;
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(
+      180deg,
+      rgba(18, 11, 20, 0.97),
+      rgba(47, 12, 24, 0.97)
+    );
+    border-top: 2px solid #b96c48;
+    border-bottom: 2px solid #b96c48;
+    box-shadow: 0 0 22px rgba(190, 49, 44, 0.4);
+  }
+
+  .banner-title {
+    position: relative;
+    z-index: 2;
+    flex: 0 0 205px;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 8px;
-  }
-
-  .panel {
-    width: min(100%, 620px);
-    padding: 15px 20px;
+    padding: 10px;
     text-align: center;
-    color: #f7e9d1;
     background: linear-gradient(
       135deg,
-      rgba(17, 12, 24, .94),
-      rgba(48, 13, 28, .94)
+      #29141c,
+      #501b25
     );
-    border: 2px solid #ba6b42;
-    border-radius: 12px;
-    box-shadow: 0 0 22px rgba(198, 62, 47, .35);
+    border-right: 2px solid var(--gold);
+    box-shadow: 6px 0 15px rgba(0, 0, 0, 0.5);
   }
 
-  .heading {
-    color: #e6aa70;
-    font-size: 17px;
+  .banner-title .symbol {
+    font-size: 23px;
+    margin-bottom: 4px;
+  }
+
+  .banner-title .main {
+    font-size: 19px;
     font-weight: bold;
-    letter-spacing: 3px;
-    margin-bottom: 10px;
+    letter-spacing: 1px;
+    color: var(--gold);
+    line-height: 1.1;
   }
 
-  .curse {
-    min-height: 100px;
+  .banner-title .sub {
+    margin-top: 5px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #d7b3a5;
+  }
+
+  .ticker-window {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  .ticker-window::before,
+  .ticker-window::after {
+    content: "";
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    bottom: 0;
+    width: 32px;
+    pointer-events: none;
+  }
+
+  .ticker-window::before {
+    left: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(30, 12, 22, 0.9),
+      transparent
+    );
+  }
+
+  .ticker-window::after {
+    right: 0;
+    background: linear-gradient(
+      270deg,
+      rgba(30, 12, 22, 0.9),
+      transparent
+    );
+  }
+
+  .ticker-track {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    animation: scroll var(--speed) linear infinite;
+    will-change: transform;
+  }
+
+  .ticker-group {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+  }
+
+  .item {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 7px;
-    transition: opacity .35s ease, transform .35s ease;
-  }
-
-  .curse.hidden {
-    opacity: 0;
-    transform: translateY(7px);
-  }
-
-  .name {
-    font-size: 26px;
-    font-weight: bold;
-    color: #fff1dd;
-  }
-
-  .effect {
-    font-size: 16px;
-    color: #e6c7b6;
+    flex: 0 0 auto;
+    min-width: 290px;
+    max-width: 420px;
+    height: 84px;
+    padding: 7px 26px;
+    border-right: 1px solid rgba(243, 189, 114, 0.35);
+    gap: 8px;
   }
 
   .gift {
-    font-size: 17px;
-    color: #f3b86c;
+    color: var(--gold);
+    font-size: 20px;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+
+  .effect {
+    color: var(--cream);
+    font-size: 16px;
+    white-space: nowrap;
+  }
+
+  .effect .curse-name {
+    color: #ff8c7c;
     font-weight: bold;
   }
 
-  .footer {
-    margin-top: 10px;
-    font-size: 12px;
-    letter-spacing: 2px;
-    color: #a99591;
+  .effect .description {
+    color: var(--muted);
   }
 
-  @media (max-width: 420px) {
-    .panel { padding: 12px; }
-    .heading { font-size: 13px; }
-    .name { font-size: 21px; }
-    .effect { font-size: 14px; }
-    .gift { font-size: 15px; }
+  @keyframes scroll {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (max-width: 650px) {
+    .banner {
+      height: 96px;
+    }
+
+    .banner-title {
+      flex-basis: 125px;
+      padding: 6px;
+    }
+
+    .banner-title .symbol {
+      font-size: 18px;
+    }
+
+    .banner-title .main {
+      font-size: 14px;
+    }
+
+    .banner-title .sub {
+      font-size: 8px;
+      letter-spacing: 1px;
+    }
+
+    .item {
+      min-width: 260px;
+      height: 78px;
+      padding: 6px 18px;
+    }
+
+    .gift {
+      font-size: 17px;
+    }
+
+    .effect {
+      font-size: 14px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ticker-track {
+      animation: none;
+    }
   }
 </style>
 </head>
+
 <body>
 
-<div class="overlay">
-  <div class="panel">
-    <div class="heading">⚔ CURSES OF LOKI ⚔</div>
+<div class="banner">
 
-    <div class="curse" id="curse">
-      <div class="name" id="name"></div>
-      <div class="effect" id="effect"></div>
-      <div class="gift" id="gift"></div>
-    </div>
-
-    <div class="footer">
-      JOOSE VIKING CHAOS · VIEWER ACTIONS
-    </div>
+  <div class="banner-title">
+    <div class="symbol">⚔️</div>
+    <div class="main">CURSES<br>OF LOKI</div>
+    <div class="sub">VIEWER ACTIONS</div>
   </div>
+
+  <div class="ticker-window">
+    <div class="ticker-track" id="tickerTrack"></div>
+  </div>
+
 </div>
 
 <script>
 const curses = [
   {
+    gift: "Perfume",
     name: "Loki's Mischief",
-    effect: "Drains 10 stamina",
-    gift: "Perfume"
+    effect: "-10 Stamina"
   },
   {
+    gift: "Love Glasses",
     name: "Loki's Downpour",
-    effect: "Wet for 30 seconds",
-    gift: "Love Glasses"
+    effect: "Wet 30s"
   },
   {
+    gift: "Breeze Queen",
     name: "Loki's Sticky Fingers",
-    effect: "Trapped in tar for 15 seconds",
-    gift: "Breeze Queen"
+    effect: "Tared 15s"
   },
   {
+    gift: "Mystic Ney",
     name: "Loki's Venom",
-    effect: "Poisoned for 5 seconds",
-    gift: "Mystic Ney"
+    effect: "Poison 5s"
   },
   {
+    gift: "Hanging Lights",
     name: "Surtr's Wrath",
-    effect: "Burning for 5 seconds",
-    gift: "Hanging Lights"
+    effect: "Burning 5s"
   },
   {
+    gift: "Peek-a-bro",
     name: "Loki's Heavy Burden",
-    effect: "Encumbered for 15 seconds",
-    gift: "Peek-a-bro"
+    effect: "Encumbered 15s"
   },
   {
+    gift: "Panther Paws",
     name: "Loki's Blood Curse",
-    effect: "Bleeding for 5 seconds",
-    gift: "Panther Paws"
+    effect: "Bleeding 5s"
   },
   {
+    gift: "Prince",
     name: "Hel's Frozen Grip",
-    effect: "Frozen and slowed for 10 seconds",
-    gift: "Prince"
+    effect: "Frozen 10s"
   },
   {
+    gift: "Galaxy",
     name: "Loki's Paralysis",
-    effect: "Immobilized for 5 seconds",
-    gift: "Galaxy"
+    effect: "Immobilized 5s"
   },
   {
+    gift: "Whale Diving",
     name: "Loki's Puke",
-    effect: "Removes all active food buffs",
-    gift: "Whale Diving"
+    effect: "Removes Food Buffs"
   }
 ];
 
-let index = 0;
+const track = document.getElementById("tickerTrack");
 
-const card = document.getElementById("curse");
-const nameEl = document.getElementById("name");
-const effectEl = document.getElementById("effect");
-const giftEl = document.getElementById("gift");
+function createGroup() {
+  const group = document.createElement("div");
+  group.className = "ticker-group";
 
-function renderCurse() {
-  const item = curses[index];
-  nameEl.textContent = item.name;
-  effectEl.textContent = item.effect;
-  giftEl.textContent = "🎁 SEND " + item.gift.toUpperCase();
+  curses.forEach(curse => {
+    const item = document.createElement("div");
+    item.className = "item";
+
+    const gift = document.createElement("div");
+    gift.className = "gift";
+    gift.textContent = "🎁 " + curse.gift;
+
+    const effect = document.createElement("div");
+    effect.className = "effect";
+
+    const name = document.createElement("span");
+    name.className = "curse-name";
+    name.textContent = curse.name;
+
+    const description = document.createElement("span");
+    description.className = "description";
+    description.textContent = " · " + curse.effect;
+
+    effect.append(name, description);
+    item.append(gift, effect);
+    group.appendChild(item);
+  });
+
+  return group;
 }
 
-function nextCurse() {
-  card.classList.add("hidden");
-
-  setTimeout(() => {
-    index = (index + 1) % curses.length;
-    renderCurse();
-    card.classList.remove("hidden");
-  }, 350);
-}
-
-renderCurse();
-setInterval(nextCurse, 5000);
+// Duplicate the full set for seamless looping.
+track.appendChild(createGroup());
+track.appendChild(createGroup());
 </script>
 
 </body>
 </html>
-
