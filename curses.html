@@ -3,16 +3,14 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Joose Viking Chaos | Curses of Loki</title>
 
 <style>
   :root {
-    --gold: #f3bd72;
-    --cream: #fff0dc;
-    --muted: #e5b8a6;
-    --red: #d65b4e;
-    --speed: 95s;
+    --gold: #efbc73;
+    --cream: #fff1dc;
+    --red: #f08a7c;
   }
 
   * {
@@ -36,197 +34,113 @@
 
   .banner {
     width: 100%;
-    height: 110px;
-    display: flex;
-    align-items: stretch;
-    overflow: hidden;
-    position: relative;
-    background: linear-gradient(
-      180deg,
-      rgba(18, 11, 20, 0.97),
-      rgba(47, 12, 24, 0.97)
-    );
-    border-top: 2px solid #b96c48;
-    border-bottom: 2px solid #b96c48;
-    box-shadow: 0 0 22px rgba(190, 49, 44, 0.4);
-  }
-
-  .banner-title {
-    position: relative;
-    z-index: 2;
-    flex: 0 0 205px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    text-align: center;
+    padding: 10px 14px 12px;
     background: linear-gradient(
       135deg,
-      #29141c,
-      #501b25
+      rgba(20, 12, 23, 0.96),
+      rgba(56, 15, 29, 0.96)
     );
-    border-right: 2px solid var(--gold);
-    box-shadow: 6px 0 15px rgba(0, 0, 0, 0.5);
+    border-top: 3px solid var(--gold);
+    border-bottom: 3px solid #9b473b;
+    box-shadow: 0 0 24px rgba(200, 55, 44, 0.4);
   }
 
-  .banner-title .symbol {
-    font-size: 23px;
-    margin-bottom: 4px;
-  }
-
-  .banner-title .main {
-    font-size: 19px;
-    font-weight: bold;
-    letter-spacing: 1px;
+  .heading {
+    text-align: center;
     color: var(--gold);
-    line-height: 1.1;
+    font-size: 23px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(239, 188, 115, .3);
   }
 
-  .banner-title .sub {
-    margin-top: 5px;
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: #d7b3a5;
-  }
-
-  .ticker-window {
-    flex: 1;
-    min-width: 0;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
-
-  .ticker-window::before,
-  .ticker-window::after {
-    content: "";
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    bottom: 0;
-    width: 32px;
-    pointer-events: none;
-  }
-
-  .ticker-window::before {
-    left: 0;
-    background: linear-gradient(
-      90deg,
-      rgba(30, 12, 22, 0.9),
-      transparent
-    );
-  }
-
-  .ticker-window::after {
-    right: 0;
-    background: linear-gradient(
-      270deg,
-      rgba(30, 12, 22, 0.9),
-      transparent
-    );
-  }
-
-  .ticker-track {
-    display: flex;
-    align-items: center;
-    width: max-content;
-    animation: scroll var(--speed) linear infinite;
-    will-change: transform;
-  }
-
-  .ticker-group {
-    display: flex;
-    align-items: center;
-    flex: 0 0 auto;
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
   }
 
   .item {
+    min-width: 0;
+    padding: 10px 6px;
+    text-align: center;
+    background: rgba(10, 8, 15, 0.55);
+    border: 1px solid rgba(239, 188, 115, 0.45);
+    border-radius: 7px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    flex: 0 0 auto;
-    min-width: 290px;
-    max-width: 420px;
-    height: 84px;
-    padding: 7px 26px;
-    border-right: 1px solid rgba(243, 189, 114, 0.35);
-    gap: 8px;
+    gap: 5px;
   }
 
   .gift {
     color: var(--gold);
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
-    white-space: nowrap;
+    overflow-wrap: anywhere;
+  }
+
+  .curse {
+    color: var(--red);
+    font-size: 15px;
+    font-weight: bold;
+    overflow-wrap: anywhere;
   }
 
   .effect {
     color: var(--cream);
-    font-size: 16px;
-    white-space: nowrap;
+    font-size: 13px;
+    line-height: 1.25;
   }
 
-  .effect .curse-name {
-    color: #ff8c7c;
-    font-weight: bold;
-  }
-
-  .effect .description {
-    color: var(--muted);
-  }
-
-  @keyframes scroll {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
-
-  @media (max-width: 650px) {
+  @media (max-width: 850px) {
     .banner {
-      height: 96px;
+      padding: 8px;
     }
 
-    .banner-title {
-      flex-basis: 125px;
-      padding: 6px;
-    }
-
-    .banner-title .symbol {
+    .heading {
       font-size: 18px;
+      margin-bottom: 8px;
     }
 
-    .banner-title .main {
-      font-size: 14px;
-    }
-
-    .banner-title .sub {
-      font-size: 8px;
-      letter-spacing: 1px;
+    .grid {
+      gap: 5px;
     }
 
     .item {
-      min-width: 260px;
-      height: 78px;
-      padding: 6px 18px;
+      padding: 8px 3px;
     }
 
     .gift {
-      font-size: 17px;
+      font-size: 13px;
+    }
+
+    .curse {
+      font-size: 12px;
     }
 
     .effect {
-      font-size: 14px;
+      font-size: 11px;
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .ticker-track {
-      animation: none;
+  @media (max-width: 450px) {
+    .heading {
+      font-size: 15px;
+      letter-spacing: 1px;
+    }
+
+    .gift {
+      font-size: 11px;
+    }
+
+    .curse {
+      font-size: 10px;
+    }
+
+    .effect {
+      font-size: 9px;
     }
   }
 </style>
@@ -236,15 +150,11 @@
 
 <div class="banner">
 
-  <div class="banner-title">
-    <div class="symbol">⚔️</div>
-    <div class="main">CURSES<br>OF LOKI</div>
-    <div class="sub">VIEWER ACTIONS</div>
+  <div class="heading">
+    ⚔️ CURSES OF LOKI ⚔️
   </div>
 
-  <div class="ticker-window">
-    <div class="ticker-track" id="tickerTrack"></div>
-  </div>
+  <div class="grid" id="curseGrid"></div>
 
 </div>
 
@@ -302,42 +212,27 @@ const curses = [
   }
 ];
 
-const track = document.getElementById("tickerTrack");
+const grid = document.getElementById("curseGrid");
 
-function createGroup() {
-  const group = document.createElement("div");
-  group.className = "ticker-group";
+curses.forEach(item => {
+  const card = document.createElement("div");
+  card.className = "item";
 
-  curses.forEach(curse => {
-    const item = document.createElement("div");
-    item.className = "item";
+  const gift = document.createElement("div");
+  gift.className = "gift";
+  gift.textContent = "🎁 " + item.gift;
 
-    const gift = document.createElement("div");
-    gift.className = "gift";
-    gift.textContent = "🎁 " + curse.gift;
+  const curse = document.createElement("div");
+  curse.className = "curse";
+  curse.textContent = item.name;
 
-    const effect = document.createElement("div");
-    effect.className = "effect";
+  const effect = document.createElement("div");
+  effect.className = "effect";
+  effect.textContent = item.effect;
 
-    const name = document.createElement("span");
-    name.className = "curse-name";
-    name.textContent = curse.name;
-
-    const description = document.createElement("span");
-    description.className = "description";
-    description.textContent = " · " + curse.effect;
-
-    effect.append(name, description);
-    item.append(gift, effect);
-    group.appendChild(item);
-  });
-
-  return group;
-}
-
-// Duplicate the full set for seamless looping.
-track.appendChild(createGroup());
-track.appendChild(createGroup());
+  card.append(gift, curse, effect);
+  grid.appendChild(card);
+});
 </script>
 
 </body>
