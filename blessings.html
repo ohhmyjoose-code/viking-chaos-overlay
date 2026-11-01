@@ -1,1 +1,193 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joose Viking Chaos | Blessings of Odin</title>
+
+<style>
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
+    background: transparent;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  .overlay {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+  }
+
+  .panel {
+    width: min(100%, 620px);
+    padding: 15px 20px;
+    text-align: center;
+    color: #f7e9d1;
+    background: linear-gradient(
+      135deg,
+      rgba(8, 27, 47, .94),
+      rgba(17, 55, 79, .94)
+    );
+    border: 2px solid #d9ad55;
+    border-radius: 12px;
+    box-shadow: 0 0 22px rgba(73, 168, 225, .35);
+  }
+
+  .heading {
+    color: #f4ca69;
+    font-size: 17px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+  }
+
+  .blessing {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(217, 173, 85, .25);
+  }
+
+  .blessing:last-child {
+    border-bottom: none;
+  }
+
+  .name {
+    font-size: 26px;
+    font-weight: bold;
+    color: #fff1dd;
+  }
+
+  .effect {
+    font-size: 16px;
+    color: #b9e3f7;
+    margin-top: 7px;
+  }
+
+  .gift {
+    font-size: 17px;
+    color: #f4ca69;
+    font-weight: bold;
+    margin-top: 7px;
+  }
+
+  .footer {
+    margin-top: 10px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #9bb8c8;
+  }
+
+  @media (max-width: 420px) {
+    .panel { padding: 12px; }
+    .heading { font-size: 13px; }
+    .name { font-size: 21px; }
+    .effect { font-size: 14px; }
+    .gift { font-size: 15px; }
+  }
+</style>
+</head>
+
+<body>
+
+<div class="overlay">
+  <div class="panel">
+
+    <div class="heading">⚡ BLESSINGS OF ODIN ⚡</div>
+
+    <div id="blessings"></div>
+
+    <div class="footer">
+      JOOSE VIKING CHAOS · VIEWER ACTIONS
+    </div>
+
+  </div>
+</div>
+
+<script>
+const blessings = [
+  {
+    name: "Odin's Speed",
+    effect: "30 seconds of increased speed",
+    gift: "Paper Crane"
+  },
+  {
+    name: "Odin's Mercy",
+    effect: "Restores 25 HP",
+    gift: "Confetti"
+  },
+  {
+    name: "Odin's Aegis",
+    effect: "30 seconds of shielding",
+    gift: "Blast Drum"
+  },
+  {
+    name: "Thor's Fury",
+    effect: "30 seconds of Berserker power",
+    gift: "Forever Rosa"
+  },
+  {
+    name: "Odin's Endurance",
+    effect: "Restores 25 stamina",
+    gift: "Night Star"
+  },
+  {
+    name: "Thor's Stone Skin",
+    effect: "30 seconds of protection",
+    gift: "Air Dancer"
+  },
+  {
+    name: "Freya's Blessing",
+    effect: "60 seconds of poison resistance",
+    gift: "Love You"
+  },
+  {
+    name: "Odin's Rest",
+    effect: "60 seconds of Rested",
+    gift: "Meerkat"
+  },
+  {
+    name: "Eikthyr's Grace",
+    effect: "30 seconds of reduced running and jumping stamina costs",
+    gift: "Manifesting"
+  },
+  {
+    name: "Njord's Gift",
+    effect: "60 seconds of swimming tonic",
+    gift: "Groove Guitar"
+  }
+];
+
+const container = document.getElementById("blessings");
+
+blessings.forEach(item => {
+  const card = document.createElement("div");
+  card.className = "blessing";
+
+  const name = document.createElement("div");
+  name.className = "name";
+  name.textContent = item.name;
+
+  const effect = document.createElement("div");
+  effect.className = "effect";
+  effect.textContent = item.effect;
+
+  const gift = document.createElement("div");
+  gift.className = "gift";
+  gift.textContent = "🎁 SEND " + item.gift.toUpperCase();
+
+  card.appendChild(name);
+  card.appendChild(effect);
+  card.appendChild(gift);
+  container.appendChild(card);
+});
+</script>
+
+</body>
+</html>
+
