@@ -1,1 +1,201 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Joose Viking Chaos | Curses of Loki</title>
+<style>
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: transparent;
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  .overlay {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+  }
+
+  .panel {
+    width: min(100%, 620px);
+    padding: 15px 20px;
+    text-align: center;
+    color: #f7e9d1;
+    background: linear-gradient(
+      135deg,
+      rgba(17, 12, 24, .94),
+      rgba(48, 13, 28, .94)
+    );
+    border: 2px solid #ba6b42;
+    border-radius: 12px;
+    box-shadow: 0 0 22px rgba(198, 62, 47, .35);
+  }
+
+  .heading {
+    color: #e6aa70;
+    font-size: 17px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+  }
+
+  .curse {
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 7px;
+    transition: opacity .35s ease, transform .35s ease;
+  }
+
+  .curse.hidden {
+    opacity: 0;
+    transform: translateY(7px);
+  }
+
+  .name {
+    font-size: 26px;
+    font-weight: bold;
+    color: #fff1dd;
+  }
+
+  .effect {
+    font-size: 16px;
+    color: #e6c7b6;
+  }
+
+  .gift {
+    font-size: 17px;
+    color: #f3b86c;
+    font-weight: bold;
+  }
+
+  .footer {
+    margin-top: 10px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #a99591;
+  }
+
+  @media (max-width: 420px) {
+    .panel { padding: 12px; }
+    .heading { font-size: 13px; }
+    .name { font-size: 21px; }
+    .effect { font-size: 14px; }
+    .gift { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="overlay">
+  <div class="panel">
+    <div class="heading">⚔ CURSES OF LOKI ⚔</div>
+
+    <div class="curse" id="curse">
+      <div class="name" id="name"></div>
+      <div class="effect" id="effect"></div>
+      <div class="gift" id="gift"></div>
+    </div>
+
+    <div class="footer">
+      JOOSE VIKING CHAOS · VIEWER ACTIONS
+    </div>
+  </div>
+</div>
+
+<script>
+const curses = [
+  {
+    name: "Loki's Mischief",
+    effect: "Drains 10 stamina",
+    gift: "Perfume"
+  },
+  {
+    name: "Loki's Downpour",
+    effect: "Wet for 30 seconds",
+    gift: "Love Glasses"
+  },
+  {
+    name: "Loki's Sticky Fingers",
+    effect: "Trapped in tar for 15 seconds",
+    gift: "Breeze Queen"
+  },
+  {
+    name: "Loki's Venom",
+    effect: "Poisoned for 5 seconds",
+    gift: "Mystic Ney"
+  },
+  {
+    name: "Surtr's Wrath",
+    effect: "Burning for 5 seconds",
+    gift: "Hanging Lights"
+  },
+  {
+    name: "Loki's Heavy Burden",
+    effect: "Encumbered for 15 seconds",
+    gift: "Peek-a-bro"
+  },
+  {
+    name: "Loki's Blood Curse",
+    effect: "Bleeding for 5 seconds",
+    gift: "Panther Paws"
+  },
+  {
+    name: "Hel's Frozen Grip",
+    effect: "Frozen and slowed for 10 seconds",
+    gift: "Prince"
+  },
+  {
+    name: "Loki's Paralysis",
+    effect: "Immobilized for 5 seconds",
+    gift: "Galaxy"
+  },
+  {
+    name: "Loki's Puke",
+    effect: "Removes all active food buffs",
+    gift: "Whale Diving"
+  }
+];
+
+let index = 0;
+
+const card = document.getElementById("curse");
+const nameEl = document.getElementById("name");
+const effectEl = document.getElementById("effect");
+const giftEl = document.getElementById("gift");
+
+function renderCurse() {
+  const item = curses[index];
+  nameEl.textContent = item.name;
+  effectEl.textContent = item.effect;
+  giftEl.textContent = "🎁 SEND " + item.gift.toUpperCase();
+}
+
+function nextCurse() {
+  card.classList.add("hidden");
+
+  setTimeout(() => {
+    index = (index + 1) % curses.length;
+    renderCurse();
+    card.classList.remove("hidden");
+  }, 350);
+}
+
+renderCurse();
+setInterval(nextCurse, 5000);
+</script>
+
+</body>
+</html>
+
