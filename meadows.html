@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Meadows Supply Drops</title>
+<title>Viking Chaos 2.0 Viewer Controls</title>
 
 <style>
 * {
@@ -17,30 +17,23 @@ html, body {
   background: transparent;
   overflow: hidden;
   font-family: Arial, sans-serif;
-  color: #f4e8c8;
+  color: #fff;
 }
 
-.banner {
+.menu {
   width: 100%;
   padding: 8px;
-  background: rgba(20, 41, 27, 0.90);
-  border: 1px solid #b99a55;
+  background: rgba(12, 20, 32, 0.88);
+  border: 1px solid #bd8b46;
   border-radius: 9px;
 }
 
 .heading {
   text-align: center;
-  color: #f1cd7b;
+  color: #ffd28a;
   font-weight: 900;
   font-size: 17px;
   letter-spacing: 1px;
-  margin-bottom: 4px;
-}
-
-.subtitle {
-  text-align: center;
-  color: #b7d6a5;
-  font-size: 11px;
   margin-bottom: 8px;
 }
 
@@ -54,8 +47,8 @@ html, body {
   min-width: 0;
   min-height: 70px;
   text-align: center;
-  background: rgba(48, 76, 50, 0.85);
-  border: 1px solid #718c58;
+  background: rgba(73, 96, 123, 0.5);
+  border: 1px solid rgba(255, 210, 138, 0.4);
   border-radius: 7px;
   padding: 8px 5px;
 
@@ -71,75 +64,71 @@ html, body {
   overflow-wrap: anywhere;
 }
 
-.resource {
-  color: #c8e8a8;
+.effect {
   font-size: 12px;
+  color: #ffd28a;
   margin-top: 5px;
   overflow-wrap: anywhere;
 }
 
 .thankyou {
-  background: rgba(70, 80, 43, 0.85);
-  border-color: #d4b76a;
+  background: rgba(85, 67, 105, 0.55);
+  border-color: rgba(255, 190, 220, 0.65);
 }
 
 .thankyou .gift {
-  color: #f1cd7b;
+  color: #ffc7df;
 }
 
-.thankyou .resource {
-  color: #f4e8c8;
+.thankyou .effect {
+  color: #ffe2ee;
 }
 </style>
 </head>
 
 <body>
 
-<div class="banner">
+<div class="menu">
   <div class="heading">
-    🌿 MEADOWS SUPPLY DROPS 🌿
-  </div>
-
-  <div class="subtitle">
-    OFFERINGS TO THE VIKING
+    ⚔ VIKING CHAOS • VIEWER CONTROLS ⚔
   </div>
 
   <div class="items" id="items"></div>
 </div>
 
 <script>
-const supplies = [
+const interactions = [
   {
-    gift: "🌹 Rosa",
-    resource: "🪵 1 Wood"
+    gift: "✨ You're Amazing",
+    effect: "Greydwarf Ambush"
   },
   {
-    gift: "🥊 Gold Boxing Gloves",
-    resource: "🪨 1 Stone"
+    gift: "🎸 Rock Idol",
+    effect: "Boar Stampede"
   },
   {
-    gift: "🐬 Dolphin",
-    resource: "🪨 1 Flint"
+    gift: "🎤 Neon Rockstar",
+    effect: "Neck Swarm"
   },
   {
-    gift: "🧸 Hi Bear",
-    resource: "🦌 1 Deer Hide"
+    gift: "🦢 Swan",
+    effect: "Skeleton Ambush"
   },
   {
-    gift: "🎉 Bravo!",
-    resource: "🐗 1 Leather Scrap"
+    gift: "🎆 Fireworks",
+    effect: "Natural Raid"
   },
   {
-    gift: "🍅 Tiny Blush",
-    resource: "🟡 1 Resin"
+    gift: "✈️ Flying Jets",
+    effect: "Delete Inventory"
   },
   {
-    gift: "✉️ Lyric Mail",
-    resource: "🪶 1 Feather"
+    gift: "☄️ Meteor Shower",
+    effect: "Instant Death"
   },
   {
     gift: "❤️ THANK YOU!",
-    resource: "Thanks for watching, chatting & supporting the Viking! ⚔️",
+    effect: "Thanks for watching, chatting & supporting the Viking! ⚔️",
     thankyou: true
   }
 ];
@@ -152,7 +141,7 @@ const rotationInterval = 4000;
 let currentPage = 0;
 
 const totalPages = Math.ceil(
-  supplies.length / cardsPerPage
+  interactions.length / cardsPerPage
 );
 
 function renderPage() {
@@ -160,14 +149,13 @@ function renderPage() {
 
   const start = currentPage * cardsPerPage;
 
-  const visible = supplies.slice(
+  const visible = interactions.slice(
     start,
     start + cardsPerPage
   );
 
   visible.forEach(item => {
     const card = document.createElement("div");
-
     card.className = item.thankyou
       ? "item thankyou"
       : "item";
@@ -176,11 +164,11 @@ function renderPage() {
     gift.className = "gift";
     gift.textContent = item.gift;
 
-    const resource = document.createElement("div");
-    resource.className = "resource";
-    resource.textContent = item.resource;
+    const effect = document.createElement("div");
+    effect.className = "effect";
+    effect.textContent = item.effect;
 
-    card.append(gift, resource);
+    card.append(gift, effect);
     container.appendChild(card);
   });
 }
