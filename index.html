@@ -4,9 +4,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Viking Chaos Viewer Controls</title>
+<title>Viking Chaos 2.0 Viewer Controls</title>
+
 <style>
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -15,6 +19,7 @@ html, body {
   font-family: Arial, sans-serif;
   color: #fff;
 }
+
 .menu {
   width: 100%;
   padding: 8px;
@@ -22,69 +27,159 @@ html, body {
   border: 1px solid #bd8b46;
   border-radius: 9px;
 }
+
 .heading {
   text-align: center;
   color: #ffd28a;
   font-weight: 900;
   font-size: 17px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   margin-bottom: 8px;
 }
+
 .items {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
-  justify-content: center;
 }
+
 .item {
-  flex: 1;
   min-width: 0;
+  min-height: 70px;
   text-align: center;
   background: rgba(73, 96, 123, 0.5);
   border: 1px solid rgba(255, 210, 138, 0.4);
   border-radius: 7px;
   padding: 8px 5px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
 .gift {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: bold;
+  overflow-wrap: anywhere;
 }
+
 .effect {
-  font-size: 13px;
+  font-size: 12px;
   color: #ffd28a;
-  margin-top: 4px;
+  margin-top: 5px;
+  overflow-wrap: anywhere;
+}
+
+.thankyou {
+  background: rgba(85, 67, 105, 0.55);
+  border-color: rgba(255, 190, 220, 0.65);
+}
+
+.thankyou .gift {
+  color: #ffc7df;
+}
+
+.thankyou .effect {
+  color: #ffe2ee;
 }
 </style>
 </head>
+
 <body>
+
 <div class="menu">
-  <div class="heading">⚔ VIKING CHAOS • VIEWER CONTROLS ⚔</div>
+  <div class="heading">
+    ⚔ VIKING CHAOS • VIEWER CONTROLS ⚔
+  </div>
+
   <div class="items" id="items"></div>
 </div>
-<script>
 
+<script>
 const interactions = [
-  { gift: "❤️ Hand Heart", effect: "Random Weather Chaos" },
-  { gift: "💰 Money Gun", effect: "Random Curses" },
-  { gift: "💗 Hearts", effect: "Random Meadows Mobs" },
-  { gift: "👍 5K Likes", effect: "Natural Raid" }
+  {
+    gift: "✨ You're Amazing",
+    effect: "Greydwarf Ambush"
+  },
+  {
+    gift: "🎸 Rock Idol",
+    effect: "Boar Stampede"
+  },
+  {
+    gift: "🎤 Neon Rockstar",
+    effect: "Neck Swarm"
+  },
+  {
+    gift: "🦢 Swan",
+    effect: "Skeleton Ambush"
+  },
+  {
+    gift: "🎆 Fireworks",
+    effect: "Natural Raid"
+  },
+  {
+    gift: "✈️ Flying Jets",
+    effect: "Delete Inventory"
+  },
+  {
+    gift: "☄️ Meteor Shower",
+    effect: "Instant Death"
+  },
+  {
+    gift: "❤️ THANK YOU!",
+    effect: "Thanks for watching, chatting & supporting the Viking! ⚔️",
+    thankyou: true
+  }
 ];
 
-
-// Add new interactions to the list above as you create them.
-// The overlay URL will stay the same.
 const container = document.getElementById("items");
-interactions.forEach(item => {
-  const card = document.createElement("div");
-  card.className = "item";
-  const gift = document.createElement("div");
-  gift.className = "gift";
-  gift.textContent = item.gift;
-  const effect = document.createElement("div");
-  effect.className = "effect";
-  effect.textContent = item.effect;
-  card.append(gift, effect);
-  container.appendChild(card);
-});
+
+const cardsPerPage = 2;
+const rotationInterval = 4000;
+
+let currentPage = 0;
+
+const totalPages = Math.ceil(
+  interactions.length / cardsPerPage
+);
+
+function renderPage() {
+  container.replaceChildren();
+
+  const start = currentPage * cardsPerPage;
+
+  const visible = interactions.slice(
+    start,
+    start + cardsPerPage
+  );
+
+  visible.forEach(item => {
+    const card = document.createElement("div");
+    card.className = item.thankyou
+      ? "item thankyou"
+      : "item";
+
+    const gift = document.createElement("div");
+    gift.className = "gift";
+    gift.textContent = item.gift;
+
+    const effect = document.createElement("div");
+    effect.className = "effect";
+    effect.textContent = item.effect;
+
+    card.append(gift, effect);
+    container.appendChild(card);
+  });
+}
+
+renderPage();
+
+setInterval(() => {
+  currentPage = (currentPage + 1) % totalPages;
+  renderPage();
+}, rotationInterval);
 </script>
+
 </body>
 </html>
